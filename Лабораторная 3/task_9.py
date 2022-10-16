@@ -10,5 +10,5 @@ total_money = spend
 for i in range (2, months + 1):
     spend *= (1 + increase)
     total_money +=spend
-need_money = total_money - salary * 10
+need_money = total_money - salary * months
 print(round(need_money))
