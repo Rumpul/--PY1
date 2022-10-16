@@ -9,6 +9,6 @@ month = 0  # количество месяцев, которое можно пр
 total_money = money_capital + salary
 
 while total_money >= 0:
-    total_money -= spend + spend * 0.05
+    total_money -= spend + spend * increase
     month += 1
 print(month)
