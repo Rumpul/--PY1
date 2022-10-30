@@ -3,17 +3,17 @@ def get_count_char(str_):
     dict_ = {}
     str_ = str_.lower()
 
-    for sim in str_:
-        if sim.isalpha() == True:
-            dict_[sim] = dict_.get(sim, 0) + 1
+    for sym in str_:
+        if sym.isalpha() == True:
+            dict_[sym] = dict_.get(sym, 0) + 1
 
     return dict_
 # TODO посчитать количество каждой буквы в строке в аргументе str_
 def percent_count_char(dict_):
     new_dict = {}
     total_count = sum(dict_.values())
-    for sim, count in dict_.items():
-        new_dict[sim] = (count/total_count)*100
+    for sym, count in dict_.items():
+        new_dict[sym] = round((count/total_count)*100, 2)
     return new_dict
 
 main_str = """
