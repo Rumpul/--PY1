@@ -1,12 +1,11 @@
 import random
-def get_unique_list_numbers() -> list[int]:
-    list_numbers = list(range(-10, 11))  # TODO написать функцию для получения списка уникальных целых чисел
+def get_unique_list_numbers(start = -10, stop = 11, size = 15) -> list[int]:
+    list_numbers = list(range(start, stop))  # TODO написать функцию для получения списка уникальных целых чисел
     random.shuffle(list_numbers)
-    max_count_nember = 15
     list_ = []
     for value in list_numbers:
             list_.append(value)
-    return list_[:max_count_nember]
+    return list_[:size]
 
 list_unique_numbers = get_unique_list_numbers()
 print(list_unique_numbers)
