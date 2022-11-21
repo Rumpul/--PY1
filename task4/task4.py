@@ -1,9 +1,11 @@
 import json
 
+
 INPUT_FILE = "input.csv"
+OUTPUT_FILE = "output.json"
 
 
-def csv_to_list_dict(filename, delimiter=',', newline='\n') -> list[dict]:
+def csv_to_list_dict(filename, delimiter=',', newline='\n'):
     with open(filename) as input_file:
         json_data = []
         headings = input_file.readline().rstrip().split(delimiter)
@@ -11,8 +13,9 @@ def csv_to_list_dict(filename, delimiter=',', newline='\n') -> list[dict]:
             input_line = line.strip().split(newline)
             for current_line in input_line:
                 json_data.append(dict(zip(headings, current_line.split(delimiter))))
+        yield json_data
 
-        return json_data
 
-
-print(json.dumps(csv_to_list_dict(INPUT_FILE), indent=4))
+with open(OUTPUT_FILE, 'w') as output_file:
+    for output_data in csv_to_list_dict(INPUT_FILE):
+        json.dump(output_data, output_file, indent=4)
