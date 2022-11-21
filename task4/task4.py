@@ -11,7 +11,7 @@ def csv_to_list_dict(filename, delimiter=',', newline='\n'):
                 yield dict(zip(headings, current_line.split(delimiter)))
 
 
-def json_writer(filename, delimiter=',', newline='\n', indent=' '):
+def json_writer(filename, delimiter=',', newline='\n', indent='     '):
     line_count = sum(1 for line in open(INPUT_FILE))-1
     with open(filename, 'w') as output_file:
         output_file.write('[' + newline)
