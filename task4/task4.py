@@ -2,26 +2,25 @@ INPUT_FILE = "input.csv"
 OUTPUT_FILE = "output.json"
 
 
-def csv_to_list_dict(filename, delimiter=',', newline='\n'):
+def csv_to_list_dict(filename, filename2, delimiter=',', newline='\n', indent='     '):
     with open(filename) as input_file:
-        headings = input_file.readline().replace('\n', "").split(delimiter)
-        for line in input_file:
-            input_line = line.replace('\n', "").split(newline)
-            for current_line in input_line:
-                yield dict(zip(headings, current_line.split(delimiter)))
+        with open(filename2, 'w') as output_file:
+            output_file.write('[')
+            headings = input_file.readline().replace('\n', "").split(delimiter)
+            for count, line in enumerate(input_file):
+                input_line = line.replace('\n', "").split(newline)
+                for current_line in input_line:
+                    json_line = dict(zip(headings, current_line.split(delimiter)))
+                    dict_delim = "" if count == 0 else delimiter
+                    output_file.write(dict_delim + newline + indent + '{')
+                    fist_row = True
+                    for key, value in json_line.items():
+                        row_delim = "" if fist_row else delimiter
+                        output_file.write(row_delim + newline + f'{indent}{indent}"{key}": {value}')
+                        fist_row = False
+                    output_file.write(newline + indent + '}')
+            output_file.write(newline + ']' + newline)
 
 
-def json_writer(filename, delimiter=',', newline='\n', indent='     '):
-    with open(filename, 'w') as output_file:
-        output_file.write('[')
-        for count_output_file_lines, output_data in enumerate(csv_to_list_dict(INPUT_FILE)):
-            delim = delimiter if count_output_file_lines != 0 else ""
-            output_file.write(delim + newline + indent + '{')
-            for count_output_data, (key, value) in enumerate(output_data.items()):
-                delim = delimiter if count_output_data != 0 else ""
-                output_file.write(delim + newline + f'{indent}{indent}"{key}": {value}')
-            output_file.write(newline + indent + '}')
-        output_file.write(newline + ']')
+csv_to_list_dict(INPUT_FILE, OUTPUT_FILE)
 
-
-json_writer(OUTPUT_FILE)
